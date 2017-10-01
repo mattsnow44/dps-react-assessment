@@ -1,20 +1,32 @@
 import React from 'react';
-import { Header, Card, Container, Image, Button, Modal } from 'semantic-ui-react';
+import { Header, Card, Container, Image, Button, Modal, Input } from 'semantic-ui-react';
 import axios from 'axios';
 
 class Breweries extends React.Component {
-  state = { page: 1, totalPages: 0, breweries: [] }
+  state = { page: 1, totalPages: 0, breweries: [], searchTerm: '' }
 
   componentDidMount() {
-  axios.get('api/all_breweries?page=1&per_page=9')
-    .then( res => {
-      this.setState({ page: res.data.page, totalPages: res.data.total_pages, breweries: res.data.entries })
-    })
+    this.getBreweries()
+  }
+
+  getBreweries() {
+    axios.get('api/all_breweries?page=1&per_page=10')
+      .then( res => {
+        this.setState({ page: res.data.page, totalPages: res.data.total_pages, breweries: res.data.entries })
+      }
+    )
   }
 
   nextPage = () => {
     const page = this.state.page + 1
-    axios.get(`/api/all_breweries?page=${page}&per_page=9`)
+    let searchTerm = this.state.searchTerm
+    let apiCall = ''
+    if(this.state.searchTerm === '') {
+      apiCall = `/api/all_breweries?page=${page}&per_page=10`
+    } else {
+      apiCall = `/api/search_breweries?query=${searchTerm}&page=${page}&per_page=10`
+    }
+    axios.get(apiCall)
       .then( res => {
         this.setState({ page: res.data.page, breweries: res.data.entries })
       })
@@ -22,10 +34,29 @@ class Breweries extends React.Component {
 
   prevPage = () => {
     const page = this.state.page - 1
-    axios.get(`/api/all_breweries?page=${page}&per_page=9`)
+    let searchTerm = this.state.searchTerm
+    let apiCall = ''
+    if(this.state.searchTerm === '') {
+      apiCall = `/api/all_breweries?page=${page}&per_page=10`
+    } else {
+      apiCall = `/api/search_breweries?query=${searchTerm}&page=${page}&per_page=10`
+    }
+    axios.get(apiCall)
       .then( res => {
         this.setState({ page: res.data.page, breweries: res.data.entries })
       })
+  }
+
+  apiSearch = (e) => {
+    const searchTerm = e.target.value
+    if(searchTerm === '') {
+      this.getBreweries
+    } else {
+      axios.get(`/api/search_breweries?query=${searchTerm}&page=1&per_page=10`)
+      .then(res => {
+        this.setState({breweries: res.data.entries, totalPages: res.data.total_pages, searchTerm, page: 1})
+      })
+    }
   }
 
   render() {
@@ -51,6 +82,14 @@ class Breweries extends React.Component {
              labelPosition='right'
              onClick={this.nextPage}
            />
+          </div>
+          <div>
+            <Input
+              size='mini'
+              placeholder="Search Breweries..."
+              onChange={this.apiSearch}
+              style={{margin: "0 auto", marginTop: "10px"}}
+            />
           </div>
         </Header>
         <Card.Group itemsPerRow={3}>
