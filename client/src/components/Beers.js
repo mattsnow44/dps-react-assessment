@@ -1,5 +1,5 @@
 import React from 'react';
-import { Header, Card, Container, Button } from 'semantic-ui-react';
+import { Header, Card, Container, Button, Modal } from 'semantic-ui-react';
 import axios from 'axios';
 
 class Beers extends React.Component {
@@ -54,20 +54,43 @@ class Beers extends React.Component {
           </div>
         </Header>
         <Card.Group itemsPerRow={1}>
-          { beers.map( beer =>
-            <Card key={beer.id}>
+          { beers.map( beer => {
+            let { id,
+              name,
+              ibu,
+              abv,
+              style = {},
+              description,
+            } = beer;
+            return (
+            <Card key={id}>
               <Card.Content>
                 <Card.Header as='h3'>
-                  {beer.name}
+                  {name}
                 </Card.Header>
                 <Card.Description>
-                  {beer.description}
+                  {description}
                 </Card.Description>
-                <Card.Meta>
-                  ABV: {beer.abv} IBU: {beer.ibu}
-                </Card.Meta>
+                <Modal trigger={<Button>More Info</Button>}>
+                  <Modal.Header>{name}</Modal.Header>
+                  <Modal.Content>
+                    <Modal.Description>
+                      <Header>About This Beer</Header>
+                      <p>{description}</p>
+                      { ibu && <p>IBU: {ibu}</p>}
+                      { abv && <p>ABV: {abv}</p>}
+                    </Modal.Description>
+                  </Modal.Content>
+                  <Modal.Content>
+                    <Modal.Description>
+                      <Header>About {style.name}s</Header>
+                      <p>{style.description}</p>
+                    </Modal.Description>
+                  </Modal.Content>
+                </Modal>
               </Card.Content>
             </Card>
+          )}
           )}
         </Card.Group>
       </Container>
