@@ -10,7 +10,7 @@ class Breweries extends React.Component {
   }
 
   getBreweries() {
-    axios.get('api/all_breweries?page=1&per_page=10')
+    axios.get('api/all_breweries?page=1&per_page=9')
       .then( res => {
         this.setState({ page: res.data.page, totalPages: res.data.total_pages, breweries: res.data.entries })
       }
@@ -22,9 +22,9 @@ class Breweries extends React.Component {
     let searchTerm = this.state.searchTerm
     let apiCall = ''
     if(this.state.searchTerm === '') {
-      apiCall = `/api/all_breweries?page=${page}&per_page=10`
+      apiCall = `/api/all_breweries?page=${page}&per_page=9`
     } else {
-      apiCall = `/api/search_breweries?query=${searchTerm}&page=${page}&per_page=10`
+      apiCall = `/api/search_breweries?query=${searchTerm}&page=${page}&per_page=9`
     }
     axios.get(apiCall)
       .then( res => {
@@ -37,9 +37,9 @@ class Breweries extends React.Component {
     let searchTerm = this.state.searchTerm
     let apiCall = ''
     if(this.state.searchTerm === '') {
-      apiCall = `/api/all_breweries?page=${page}&per_page=10`
+      apiCall = `/api/all_breweries?page=${page}&per_page=9`
     } else {
-      apiCall = `/api/search_breweries?query=${searchTerm}&page=${page}&per_page=10`
+      apiCall = `/api/search_breweries?query=${searchTerm}&page=${page}&per_page=9`
     }
     axios.get(apiCall)
       .then( res => {
@@ -52,7 +52,7 @@ class Breweries extends React.Component {
     if(searchTerm === '') {
       this.getBreweries
     } else {
-      axios.get(`/api/search_breweries?query=${searchTerm}&page=1&per_page=10`)
+      axios.get(`/api/search_breweries?query=${searchTerm}&page=1&per_page=9`)
       .then(res => {
         this.setState({breweries: res.data.entries, totalPages: res.data.total_pages, searchTerm, page: 1})
       })
@@ -92,7 +92,7 @@ class Breweries extends React.Component {
             />
           </div>
         </Header>
-        <Card.Group itemsPerRow={3}>
+        <Card.Group doubling itemsPerRow={3}>
           { this.state.breweries.map( brewery => {
             let { id,
               name,

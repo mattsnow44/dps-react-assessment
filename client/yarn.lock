@@ -3839,6 +3839,10 @@ levn@^0.3.0, levn@~0.3.0:
     prelude-ls "~1.1.2"
     type-check "~0.3.2"
 
+little-loader@~0.1.0:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/little-loader/-/little-loader-0.1.1.tgz#516207701524e795feafa8e64cfc6881af39503f"
+
 load-json-file@^1.0.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/load-json-file/-/load-json-file-1.1.0.tgz#956905708d58b4bab4c2261b04f59f31c99374c0"
@@ -4937,7 +4941,7 @@ prop-types@^15.5.1, prop-types@^15.5.10, prop-types@^15.5.4:
     fbjs "^0.8.9"
     loose-envify "^1.3.1"
 
-prop-types@^15.5.8:
+prop-types@^15.5.8, prop-types@^15.6.0:
   version "15.6.0"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.6.0.tgz#ceaf083022fc46b4a35f69e13ef75aed0d639856"
   dependencies:
@@ -5077,6 +5081,18 @@ react-error-overlay@^1.0.9:
     react-dev-utils "^3.0.2"
     settle-promise "1.0.0"
     source-map "0.5.6"
+
+react-google-map@^3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/react-google-map/-/react-google-map-3.1.0.tgz#8fe05f22f4900bba6097ba84d5ecc4572bbd2265"
+  dependencies:
+    prop-types "^15.6.0"
+
+react-google-maps-loader@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/react-google-maps-loader/-/react-google-maps-loader-3.0.1.tgz#2bbf58c9578d3fefb3b118d25ce0631bab9715d2"
+  dependencies:
+    little-loader "~0.1.0"
 
 react-infinite-scroller@^1.0.15:
   version "1.0.15"

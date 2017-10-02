@@ -22,7 +22,7 @@ class Beers extends React.Component {
     let searchTerm = this.state.searchTerm
     let apiCall = ''
     if(this.state.searchTerm === '') {
-      apiCall = `/api/all_beers?page=${page}&per_page=10`
+      apiCall = `/api/all_beers?page=${page}&per_page10`
     } else {
       apiCall = `/api/search_beers?query=${searchTerm}&page=${page}&per_page=10`
     }
